@@ -1,0 +1,129 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class DisasterManagementSystem {
+
+// Components
+private Frame mainFrame;
+private TextArea realTimeMessageArea;
+private TextField disasterInputField, rescueTeamInputField;
+private Button addDisasterButton, viewDisasterButton, addRescueTeamButton,
+viewRescueTeamsButton, exitButton;
+
+// Storage for disaster and rescue team data
+private String disasterMessages = "";
+private String rescueTeams = "";
+
+// Constructor to initialize and set up the GUI components
+public DisasterManagementSystem() {
+mainFrame = new Frame("Integrated Disaster Management System");
+mainFrame.setSize(600, 500);
+mainFrame.setLayout(new BorderLayout());
+
+// Real-Time Message Area
+realTimeMessageArea = new TextArea();
+realTimeMessageArea.setEditable(false);
+
+12
+
+mainFrame.add(realTimeMessageArea, BorderLayout.NORTH);
+
+// Disaster and Rescue Team Management Panel
+Panel inputPanel = new Panel();
+inputPanel.setLayout(new FlowLayout());
+
+disasterInputField = new TextField("Enter Disaster Info", 20);
+rescueTeamInputField = new TextField("Enter Rescue Team", 20);
+
+addDisasterButton = new Button("Add Disaster");
+viewDisasterButton = new Button("View Disasters");
+addRescueTeamButton = new Button("Add Rescue Team");
+viewRescueTeamsButton = new Button("View Rescue Teams");
+exitButton = new Button("Exit");
+
+inputPanel.add(disasterInputField);
+inputPanel.add(addDisasterButton);
+inputPanel.add(viewDisasterButton);
+
+inputPanel.add(rescueTeamInputField);
+inputPanel.add(addRescueTeamButton);
+inputPanel.add(viewRescueTeamsButton);
+
+inputPanel.add(exitButton);
+
+mainFrame.add(inputPanel, BorderLayout.CENTER);
+
+// Event Listeners
+// Add Disaster
+
+13
+
+addDisasterButton.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent e) {
+String disaster = disasterInputField.getText();
+disasterMessages += disaster + "\n";
+disasterInputField.setText(""); // Clear input field after adding
+realTimeMessageArea.append("Disaster Added: " + disaster + "\n");
+}
+});
+
+// View Disasters
+viewDisasterButton.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent e) {
+if (disasterMessages.isEmpty()) {
+realTimeMessageArea.append("No disasters reported.\n");
+} else {
+realTimeMessageArea.append("Disaster Updates:\n" +
+disasterMessages);
+}
+}
+});
+
+// Add Rescue Team
+addRescueTeamButton.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent e) {
+String rescueTeam = rescueTeamInputField.getText();
+rescueTeams += rescueTeam + "\n";
+rescueTeamInputField.setText(""); // Clear input field after adding
+realTimeMessageArea.append("Rescue Team Added: " + rescueTeam +
+"\n");
+
+14
+
+}
+});
+
+// View Rescue Teams
+viewRescueTeamsButton.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent e) {
+if (rescueTeams.isEmpty()) {
+realTimeMessageArea.append("No rescue teams available.\n");
+} else {
+realTimeMessageArea.append("Rescue Teams:\n" + rescueTeams);
+}
+}
+});
+
+// Exit the application
+exitButton.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent e) {
+System.exit(0);
+}
+});
+
+mainFrame.addWindowListener(new WindowAdapter() {
+public void windowClosing(WindowEvent we) {
+System.exit(0);
+}
+});
+
+mainFrame.setVisible(true);
+}
+
+15
+// Main method to launch the system
+public static void main(String[] args) {
+new DisasterManagementSystem();
+}
+}
